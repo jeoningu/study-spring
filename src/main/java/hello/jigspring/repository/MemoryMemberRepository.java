@@ -2,10 +2,11 @@ package hello.jigspring.repository;
 
 import hello.jigspring.domain.Member;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class MemoryMemberRepository implements MemberRepository {
 
@@ -22,20 +23,47 @@ public class MemoryMemberRepository implements MemberRepository {
         return member;
     }
 
-
-    //여기부터 할 차례~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override
     public Optional<Member> findById(Long id) {
-        return Optional.empty();
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
-    public Optional<Member> findByNma(Long name) {
-        return Optional.empty();
+    public Optional<Member> findByName(String name) {
+
+        /*
+        // 스트림
+        long count = IntStream.of(1, 3, 5, 7, 9).count();
+        long sum = LongStream.of(1, 3, 5, 7, 9).sum();
+        OptionalInt min = IntStream.of(1, 3, 5, 7, 9).min();
+        OptionalInt max = IntStream.of(1, 3, 5, 7, 9).max();
+        DoubleStream.of(1.1, 2.2, 3.3, 4.4, 5.5)
+                .average()
+                .ifPresent(System.out::println);
+
+        OptionalInt reduced =
+                IntStream.range(1, 4) // [1, 2, 3]
+                        .reduce((a, b) -> {
+                            return Integer.sum(a, b);
+                        });
+
+        List<String> list = List.of("Peter", "Thomas", "Edvard", "Gerhard");
+        // print using lambda
+        list.forEach(item -> System.out.println(item));
+        // print using :: (method reference operator)
+        list.forEach(System.out::println);*/
+
+        return store.values().stream()
+                .filter(member-> member.getName().equals(name))
+                .findAny();
     }
 
     @Override
     public List<Member> findAll() {
-        return null;
+        return new ArrayList<>(store.values());
+    }
+
+    public void clearStore() {
+        store.clear();
     }
 }
