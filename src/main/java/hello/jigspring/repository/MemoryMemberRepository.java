@@ -9,7 +9,6 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-@Repository
 public class MemoryMemberRepository implements MemberRepository {
     // 동시성 문제로 HashMap 대신 ConcurrentHashMap을 사용해야 함. 나중에 적용해볼까?
     public static Map<Long, Member> store = new HashMap<>();
