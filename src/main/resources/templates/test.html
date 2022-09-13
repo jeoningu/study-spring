@@ -1,0 +1,115 @@
+var makeModalTableRcognLmttTd = function(data){
+
+var returnHtml = '';
+var rowSpanNo = 4;
+var writeColor = 'c_green';
+
+var lmttYn = data.wikLmttYn;
+var isReal = data.real;
+var isWikLmtt = data.wikLmtt; // false : 가능 / true : 불가능
+var wikLmttMnt = data.wikLmttMnt;
+var isWikRwLmtt = data.wikRwLmtt; // false : 가능 / true : 불가능
+var wikRwLmttMnt = data.wikRwLmttMnt;
+var wikRwTp = data.wikRwTp;  // A : 제한없음 / R100 : 수당 / R200 : 휴가
+var sumWikRcognMnt = data.sumWikRcognMnt;
+var sumRwWikRcognMnt = data.sumRwWikRcognMnt;
+var sumWikRealOtMnt = data.sumWikRealOtMnt;
+var sumRwWikRealOtMnt = data.sumRwWikRealOtMnt;
+
+/*****************/
+/* Y가 제한없음 : DB에 이렇게 들어가있음;;; 내가 그렇게함... ㅎ.ㅎ */
+if(lmttYn === 'Y'){
+returnHtml += '
+<td rowSpan="'+rowSpanNo+'">';
+    switch (wikRwTp){
+    case 'A' :
+    returnHtml += '제한없음';
+    break;
+    case 'R100' : case 'R200' :
+    var remainTxt = 0;
+    if(isWikRwLmtt){
+    writeColor = 'c_green';
+    }else{
+    writeColor = 'c_red';
+    }
+    if(isReal){
+    if(wikRwLmttMnt < sumRwWikRealOtMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikRwLmttMnt - sumRwWikRealOtMnt));
+    makeLmttCheckFn(data.empNm, wikRwTp, 'wik', Math.abs(wikRwLmttMnt - sumRwWikRealOtMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikRwLmttMnt - sumRwWikRealOtMnt);
+    }
+    }else{
+    if(wikRwLmttMnt < sumRwWikRcognMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikRwLmttMnt - sumRwWikRcognMnt));
+    makeLmttCheckFn(data.empNm, wikRwTp, 'wik', Math.abs(wikRwLmttMnt - sumRwWikRcognMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikRwLmttMnt - sumRwWikRcognMnt);
+    }
+    }
+    returnHtml += convertMntToHHmm(wikRwLmttMnt) + '<br>' + '<strong class="'+ writeColor +'">\[' + remainTxt +
+        '\]</strong>';
+    break;
+    }
+    returnHtml += '<br><br>제한없음';
+    }else{
+    returnHtml += '
+<td rowSpan="'+rowSpanNo+'">';
+    switch (wikRwTp){
+    case 'A' :
+    break;
+    case 'R100' : case 'R200' :
+    var remainTxt = 0;
+    if(isWikRwLmtt){
+    writeColor = 'c_green';
+    }else{
+    writeColor = 'c_red';
+    }
+    if(isReal){
+    if(wikRwLmttMnt < sumRwWikRealOtMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikRwLmttMnt - sumRwWikRealOtMnt));
+    makeLmttCheckFn(data.empNm, wikRwTp, 'wik', Math.abs(wikRwLmttMnt - sumRwWikRealOtMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikRwLmttMnt - sumRwWikRealOtMnt);
+    }
+    }else{
+    if(wikRwLmttMnt < sumRwWikRcognMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikRwLmttMnt - sumRwWikRcognMnt));
+    makeLmttCheckFn(data.empNm, wikRwTp, 'wik', Math.abs(wikRwLmttMnt - sumRwWikRcognMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikRwLmttMnt - sumRwWikRcognMnt);
+    }
+    }
+    returnHtml += convertMntToHHmm(wikRwLmttMnt) + '<br>' + '<strong class="'+ writeColor +'">\[' + remainTxt +
+        '\]</strong><br><br>';
+    break;
+    }
+
+    var remainTxt = 0;
+    if(isWikLmtt){
+    writeColor = 'c_green';
+    }else{
+    writeColor = 'c_red';
+    }
+    if(isReal){
+    if(wikLmttMnt < sumWikRealOtMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikLmttMnt - sumWikRealOtMnt));
+    makeLmttCheckFn(data.empNm, 'A', 'wik', Math.abs(wikLmttMnt - sumWikRealOtMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikLmttMnt - sumWikRealOtMnt);
+    }
+    }else{
+    if(wikLmttMnt < sumWikRcognMnt){
+    remainTxt = '-' + convertMntToHHmm(Math.abs(wikLmttMnt - sumWikRcognMnt));
+    makeLmttCheckFn(data.empNm, 'A', 'wik', Math.abs(wikLmttMnt - sumWikRcognMnt));
+    }else{
+    remainTxt = convertMntToHHmm(wikLmttMnt - sumWikRcognMnt);
+    }
+    }
+    returnHtml += '' + convertMntToHHmm(wikLmttMnt) + '<br>' + '<strong class="'+ writeColor +'">\[' + remainTxt +
+        '\]</strong>';
+    }
+    returnHtml += '
+</td>';
+return returnHtml;
+}
