@@ -1,6 +1,6 @@
-package hello.jigspring.repository;
+package hello.hellospring.repository;
 
-import hello.jigspring.domain.Member;
+import hello.hellospring.domain.Member;
 
 import java.util.List;
 import java.util.Optional;

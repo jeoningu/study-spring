@@ -1,10 +1,10 @@
-package hello.jigspring;
+package hello.hellospring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JigSpringApplicationTests {
+class HelloSpringApplicationTests {
 
 	@Test
 	void contextLoads() {

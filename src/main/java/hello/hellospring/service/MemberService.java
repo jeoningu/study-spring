@@ -1,14 +1,10 @@
-package hello.jigspring.service;
+package hello.hellospring.service;
 
-import hello.jigspring.domain.Member;
-import hello.jigspring.repository.MemberRepository;
-import hello.jigspring.repository.MemoryMemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.domain.Member;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class MemberService {
 

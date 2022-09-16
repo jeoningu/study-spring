@@ -1,4 +1,4 @@
-package hello.jigspring.controller;
+package hello.hellospring.controller;
 
 public class MemberForm {
 

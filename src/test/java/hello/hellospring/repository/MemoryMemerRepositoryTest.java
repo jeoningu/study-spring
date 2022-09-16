@@ -1,7 +1,7 @@
-package hello.jigspring.repository;
+package hello.hellospring.repository;
 
-import hello.jigspring.domain.Member;
-import org.assertj.core.api.Assertions;
+import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class MemoryMemerRepositoryTest {
 
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
-    // 각 테스트 메서드들은 의존관계를 가지지 않고 설계돼야 한다.
+    // 각 테스트 메서드들은 의존관계를 가지지 않게 설계돼야 한다.
     // 각 테스트 메서드가 실행되는 순서는 보장되지 않는다.
     // 그럼으로 테스트 메서드가 실행되고 끝날 때마다 repository에 저장된 데이터를 지워주면 된다.
     // @AfterEach가 설정된 메서드는 하나의 테스트 메서드들이 실행되고 끝날 때마다 실행된다.

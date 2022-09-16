@@ -1,14 +1,11 @@
-package hello.jigspring.service;
+package hello.hellospring.service;
 
-import hello.jigspring.domain.Member;
-import hello.jigspring.repository.MemberRepository;
-import hello.jigspring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
+import hello.hellospring.domain.Member;
+import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.service.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
