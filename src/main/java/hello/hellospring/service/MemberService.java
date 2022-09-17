@@ -2,10 +2,14 @@ package hello.hellospring.service;
 
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.domain.Member;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+// jpa로 insert,updqte 시에는 @Transactional이 필요합니다.
+// '회원가입'에서만 insert 하고 있어서 join 메서드에 설정해도 되고 class에 설정해도 됨.
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
