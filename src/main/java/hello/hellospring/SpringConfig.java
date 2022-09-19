@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
+// 1-1
 // JdbcMemberRepository, JdbcTemplateMemberRepository에 사용되는 bean
 //    private DataSource dataSource;
 //
@@ -19,23 +20,40 @@ public class SpringConfig {
 //        this.dataSource = dataSource;
 //    }
 
-    private final EntityManager em;
+// 1-2
+// JpaMemberRepository에 사용되는 bean
+//    private final EntityManager em;
+//
+//    @Autowired
+//    public SpringConfig(EntityManager em) {
+//        this.em = em;
+//    }
+//
+//    @Bean
+//    public MemberService memberService() {
+//        return new MemberService(memberRepository());
+//    }
+// service에 넣어줄 MemberRepository 설정
+//    @Bean
+//    public MemberRepository memberRepository() {
+//        //return new MemoryMemberRepository();
+//        //return new JdbcMemberRepository(dataSource);
+//        //return new JdbcTemplateMemberRepository(dataSource);
+//        return new JpaMemberRepository(em);
+//    }
+
+// 2
+//  spring data jpaRepository가 MemberRepository, JpaRepository를 상속 받은 SpringDataJpaMemberRepository를 보고 MemberRepository 빈을 생성한다.
+// MemberRepository 빈을 주입 받게 설정한다.
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public SpringConfig(EntityManager em) {
-        this.em = em;
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
-    }
-
-    @Bean
-    public MemberRepository memberRepository() {
-        //return new MemoryMemberRepository();
-        //return new JdbcMemberRepository(dataSource);
-        //return new JdbcTemplateMemberRepository(dataSource);
-        return new JpaMemberRepository(em);
+        return new MemberService(memberRepository);
     }
 }
