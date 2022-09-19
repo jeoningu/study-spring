@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ public class SpringConfig {
 // MemberRepository 빈을 주입 받게 설정한다.
     private final MemberRepository memberRepository;
 
+
+
     @Autowired
     public SpringConfig(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -56,4 +59,13 @@ public class SpringConfig {
     public MemberService memberService() {
         return new MemberService(memberRepository);
     }
+
+//3
+// TimeTraceAop.java에서 @Component로 빈을 생성함.
+// 실무에서는 시간 측정같은 특수한 기능을 하는 aop Bean 설정은 aop로 쓰는 구나 인지하기 위해서
+// @Configuration설정 클래스에서 @Bean으로 설정함.
+//   @Bean
+//    public TimeTraceAop timeTraceAop() {
+//        return new TimeTraceAop();
+//    }
 }
